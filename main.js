@@ -21,6 +21,13 @@ document.querySelector('#app').innerHTML = `
 const initSharkwords = () => {
   let numWrong = 0;
   const word = getRandomWord();
+
+  const sharkImgEl = document.querySelector('#shark-img');
+  const gameStatusEl = document.querySelector('#game-status');
+  const wordContainerEl = document.querySelector("word-container");
+  const letterButtons = document.querySelector("letter-buttons");
+
+
   setSharkImage(document.querySelector('#shark-img'), numWrong)
   // for debugging:
   setupWord(document.querySelector('#word-container'), word);
@@ -30,7 +37,6 @@ const initSharkwords = () => {
     // Disable button after click
     const button = guessEvent.target;
     button.setAttribute('disabled', true);
-    const sharkImgEl = document.querySelector('#shark-img');
   
     // Handle correct/incorrect guess
     if (isLetterInWord(letter)) {
@@ -46,10 +52,10 @@ const initSharkwords = () => {
    if (isWordComplete || numWrong === 5) {
     document.querySelectorAll('button').forEach((btn) => {
       btn.disabled = true
+      gameStatusEl.innerText = isWordComplete === word ? 'You Win!' : 'You Lose!';
     }) 
    }
   
-    gameStatusEl.innerText = guessedWord === word ? 'You Win!' : 'You Lose!';
 
   };
   setupGuesses(document.querySelector('#letter-buttons'), handleGuess);
