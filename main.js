@@ -30,22 +30,29 @@ const initSharkwords = () => {
     // Disable button after click
     const button = guessEvent.target;
     button.setAttribute('disabled', true);
+    const sharkImgEl = document.querySelector('#shark-img');
   
     // Handle correct/incorrect guess
     if (isLetterInWord(letter)) {
       revealLetterInWord(letter);
     } else {
       numWrong += 1;
-      setSharkImage(document.querySelector('#shark-img'), numWrong);
+      setSharkImage(sharkImgEl, numWrong);
     }
     const isWordComplete = Array.from(document.querySelectorAll('.letter-box')).every(
       (el) => el.innerText !== '',
     );
-    
+   
+   if (isWordComplete || numWrong === 5) {
+    document.querySelectorAll('button').forEach((btn) => {
+      btn.disabled = true
+    }) 
+   }
+  
+    gameStatusEl.innerText = guessedWord === word ? 'You Win!' : 'You Lose!';
+
   };
   setupGuesses(document.querySelector('#letter-buttons'), handleGuess);
-  
-const endGame = 
 
 };
 
